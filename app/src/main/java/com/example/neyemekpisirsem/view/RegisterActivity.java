@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.example.neyemekpisirsem.R;
 
 /**
- * Created by demet on 26.11.2017.
+ *  by demet on 26.11.2017.
  */
 
 public class RegisterActivity extends Activity {
