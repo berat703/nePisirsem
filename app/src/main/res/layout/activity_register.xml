@@ -33,23 +33,6 @@
     </EditText>
 
     <EditText
-        android:id="@+id/emailEditText"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/usernameEditText"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/edittext2"
-        android:ems="10"
-        android:hint="E-mail Adresi"
-        android:inputType="textEmailAddress"
-        android:textColor="#969696"
-        android:textColorHint="#C7C7CD"
-        android:textCursorDrawable="@null" >
-    </EditText>
-
-    <EditText
         android:id="@+id/passwordEditText"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -64,6 +47,22 @@
         android:textColorHint="#C7C7CD"
         android:textCursorDrawable="@null" />
 
+    <EditText
+        android:id="@+id/emailEditText"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/usernameEditText"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/edittext2"
+        android:ems="10"
+        android:hint="E-mail Adresi"
+        android:inputType="textEmailAddress"
+        android:textColor="#969696"
+        android:textColorHint="#C7C7CD"
+        android:textCursorDrawable="@null"></EditText>
+
     <Button
         android:id="@+id/registerButton"
         android:layout_width="fill_parent"
@@ -74,6 +73,7 @@
         android:background="@drawable/btnpress"
         android:padding="10dp"
         android:text="Kaydol"
+        android:onClick="deneme"
         android:textColor="#FFFFFF"
         android:textSize="16sp" />
 
