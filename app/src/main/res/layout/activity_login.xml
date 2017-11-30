@@ -14,30 +14,30 @@
          />
 
     <EditText
-        android:id="@+id/usernameEditText"
+        android:id="@+id/t_username"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/projeImageView"
+        android:layout_marginTop="126dp"
         android:background="@drawable/edittext2"
         android:ems="10"
-        android:hint="Kullanıcı Adı"
-        android:inputType="textPersonName"
+        android:hint="E-mail"
+        android:inputType="textEmailAddress"
+
         android:textColor="#969696"
         android:textColorHint="#C7C7CD"
-        android:textCursorDrawable="@null"
-        android:layout_marginTop="126dp"
-
-        android:layout_below="@+id/projeImageView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:textCursorDrawable="@null">
 
         <requestFocus />
     </EditText>
 
     <EditText
-        android:id="@+id/passwordEditText"
+        android:id="@+id/t_password"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/usernameEditText"
+        android:layout_below="@+id/t_username"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:background="@drawable/edittext2"
@@ -52,9 +52,9 @@
         android:id="@+id/loginButton"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/passwordEditText"
+        android:layout_below="@+id/t_password"
         android:layout_centerHorizontal="true"
-
+        android:onClick="add"
         android:layout_marginTop="10dp"
         android:background="@drawable/btnpress"
         android:padding="10dp"
@@ -65,7 +65,7 @@
         android:id="@+id/registerTextView"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/passwordEditText"
+        android:layout_alignLeft="@+id/t_password"
         android:layout_below="@+id/loginButton"
         android:layout_marginTop="10dp"
         android:clickable="true"
@@ -75,5 +75,24 @@
         android:onClick="onClick"
         android:textColor="#969696"
         android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="20dp"
+        android:text="Button" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="14dp"
+        android:layout_marginStart="42dp"
+        android:layout_toEndOf="@+id/projeImageView" />
 
 </RelativeLayout>
