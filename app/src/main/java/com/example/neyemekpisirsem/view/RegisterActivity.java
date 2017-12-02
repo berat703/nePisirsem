@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.example.neyemekpisirsem.R;
 import com.example.neyemekpisirsem.model.Users;
@@ -35,10 +36,12 @@ import com.squareup.okhttp.OkHttpClient;
 
 import java.net.MalformedURLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
+import static com.microsoft.windowsazure.mobileservices.table.query.QueryOperations.val;
 
 
 public class RegisterActivity extends Activity {
@@ -57,21 +60,16 @@ public class RegisterActivity extends Activity {
     EditText username;
     EditText password;
     EditText email;
-    EditText edit4;
-     EditText edit5;
+   // EditText edit4;
+   // EditText edit5;
     Button register;
-    // View view = setContentView(R.layout.activity_login);
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        username=(EditText)findViewById(R.id.t_username);
-        password=(EditText)findViewById(R.id.t_password);
-        email=(EditText)findViewById(R.id.t_email);
-        // edit4=(EditText)findViewById(R.id.editText4);
-        // edit5=(EditText)findViewById(R.id.editText5);
-        register=(Button)findViewById(R.id.registerButton);
+
         try {
 
             mClient = new MobileServiceClient(
@@ -87,17 +85,22 @@ public class RegisterActivity extends Activity {
                     return client;
                 }
             });
+
             userTable = mClient.getTable(Users.class);
             initLocalStore().get();
+            username=(EditText)findViewById(R.id.t_username);
+            password=(EditText)findViewById(R.id.t_password);
+            email=(EditText)findViewById(R.id.t_email);
 
-           /* loginView = new loginView(this, R.layout.row_list_to_do);
-            ListView listViewToDo = (ListView) findViewById(R.id.listViewToDo);
-            listViewToDo.setAdapter(loginView);
-*/
-            // Load the items from the Mobile Service
-            //  refreshItemsFromTable();
 
-        } catch (MalformedURLException e) {
+            // edit4=(EditText)findViewById(R.id.editText4);
+            // edit5=(EditText)findViewById(R.id.editText5);
+            register=(Button)findViewById(R.id.registerButton);
+           //   refreshItemsFromTable();
+
+        }
+
+        catch (MalformedURLException e) {
             createAndShowDialog(new Exception("There was an error creating the Mobile Service. Verify the URL"), "Error");
         } catch (Exception e) {
             createAndShowDialog(e, "Error");
@@ -110,13 +113,14 @@ public class RegisterActivity extends Activity {
     }
 
     public Users addItemInTable(Users item) throws ExecutionException, InterruptedException {
-        Users entity = userTable.insert(item).get();
-        return entity;
+       Users entity = userTable.insert(item).get();
+            return entity;
+
     }
     @Override
     public boolean onOptionsItemSelected (MenuItem item){
         if (item.getItemId() == R.id.menu_refresh) {
-            // refreshItemsFromTable();
+             //refreshItemsFromTable();
         }
 
         return true;
@@ -128,14 +132,14 @@ public class RegisterActivity extends Activity {
             return;
         }
 
-        // Set the item as completed and update it in the table
+
 
         AsyncTask<Void, Void, Void> task = new AsyncTask<Void, Void, Void>(){
             @Override
             protected Void doInBackground(Void... params) {
                 try {
 
-                    checkItemInTable(item);
+                    //checkItemInTable(item);
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -159,42 +163,49 @@ public class RegisterActivity extends Activity {
         if (mClient == null) {
             return;
         }
-
-        // Create a new item
-
-
         final Users item = new Users();
+
         item.setUsername(username.getText().toString());
-        item.setPassword(password.getText().toString());
-        item.setEmail(email.getText().toString());
+            item.setPassword(password.getText().toString());
+            item.setEmail(email.getText().toString());
+            item.setAuthor(false);
+            item.setName("dsgsd");
+        if(item.getUsername().matches("")){
+            Toast.makeText(this, "Kullanıcı Adı boş bırakılamaz!", Toast.LENGTH_SHORT).show();
 
+        }
+        if(item.getPassword().matches("")){
+            Toast.makeText(this, "Parola boş bırakılamaz!", Toast.LENGTH_SHORT).show();
 
+        }
+        if(item.getEmail().matches("")){
+            Toast.makeText(this, "E-mail boş bırakılamaz!", Toast.LENGTH_SHORT).show();
+
+        }
+        else{
+
+            Toast.makeText(this,"Kaydınız başarı ile oluşturulmuştur.",Toast.LENGTH_LONG).show();
             AsyncTask<Void, Void, Void> task = new AsyncTask<Void, Void, Void>() {
                 @Override
                 protected Void doInBackground(Void... params) {
+
 
                     try {
                         checkItem(item);
                         final Users entity = addItemInTable(item);
 
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                mPresenter.add(entity);
-                            }
-                        });
-
-
                     } catch (Exception e) {
                         createAndShowDialogFromTask(e, "Error");
-                        // Log.d("Hata", "message" + e);
+                        Log.d("Hata", "message" + e);
                     }
                     return null;
                 }
             };
 
-        runAsyncTask(task);
+            runAsyncTask(task);
     }
+    }
+
 
 
     private AsyncTask<Void, Void, Void> initLocalStore() throws MobileServiceLocalStoreException, ExecutionException, InterruptedException {
@@ -212,10 +223,12 @@ public class RegisterActivity extends Activity {
                     SQLiteLocalStore localStore = new SQLiteLocalStore(mClient.getContext(), "OfflineStore", null, 1);
 
                     Map<String, ColumnDataType> tableDefinition = new HashMap<String, ColumnDataType>();
+
                     tableDefinition.put("name", ColumnDataType.String);
                     tableDefinition.put("email", ColumnDataType.String);
-                    tableDefinition.put("username", ColumnDataType.Boolean);
-                    tableDefinition.put("password", ColumnDataType.Boolean);
+                    tableDefinition.put("username", ColumnDataType.String);
+                    tableDefinition.put("password", ColumnDataType.String);
+                    tableDefinition.put("isAuthor", ColumnDataType.Boolean);
                     localStore.defineTable("Users", tableDefinition);
 
                     SimpleSyncHandler handler = new SimpleSyncHandler();
@@ -266,7 +279,7 @@ public class RegisterActivity extends Activity {
         }
     }
 
-
+/*
     private class ProgressFilter implements ServiceFilter {
 
         @Override
@@ -281,5 +294,5 @@ public class RegisterActivity extends Activity {
 
             return resultFuture;
         }
-    }
+    }*/
 }

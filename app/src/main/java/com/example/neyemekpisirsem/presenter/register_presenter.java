@@ -8,23 +8,22 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.neyemekpisirsem.R;
 import com.example.neyemekpisirsem.model.*;
+import com.example.neyemekpisirsem.view.RegisterActivity;
 
 import static com.microsoft.windowsazure.mobileservices.table.query.QueryOperations.val;
-
+import com.example.neyemekpisirsem.view.*;
 /**
  * Created by Pınar Köroğlu on 24.11.2017.
  */
 
 public class register_presenter extends ArrayAdapter<Users> {
-    Button button;
-    EditText edit1;
-    EditText edit2;
-    EditText edit3;
-    EditText edit4;
-    EditText edit5;
+    Button register;
+
+
 
     Context mContext;
 
@@ -49,28 +48,18 @@ public class register_presenter extends ArrayAdapter<Users> {
         }
 
         row.setTag(currentItem);
-/*
-        button=(Button)row.findViewById(R.id.button1);
-        edit1=(EditText)row.findViewById(R.id.editText1);
-        edit2=(EditText)row.findViewById(R.id.editText2);
-        edit3=(EditText)row.findViewById(R.id.editText3);
-        edit4=(EditText)row.findViewById(R.id.editText4);*/
-        // edit5=(EditText)row.findViewById(R.id.editText5);
+
+
         final Users users = new Users();
-        button.setOnClickListener(new View.OnClickListener() {
+
+
+
+        register=(Button)row.findViewById(R.id.registerButton);
+
+        register.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
-
-
-
-
-                users.setName(edit1.getText().toString());
-                users.setEmail(edit3.getText().toString());
-                users.setUsername(edit2.getText().toString());
-                users.setPassword(edit4.getText().toString());
-
-
 
 
             }
