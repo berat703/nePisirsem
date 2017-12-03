@@ -67,7 +67,7 @@ android:layout_height="match_parent"
             android:hint="Şifre"
             android:textColorHint="#080808"
             android:background="@drawable/white2"
-
+            
             android:textSize="15sp"
             android:drawablePadding="5dp"
             android:drawableLeft="@mipmap/ic_password"
