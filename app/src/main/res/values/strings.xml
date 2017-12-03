@@ -6,5 +6,16 @@
     <string name="service_title">Mobile Apps </string>
     <string name="menu_refresh">Refresh</string>
     <string name="checkbox_text">Item Text</string>
+    
+    <string-array name="foodListArray">
+        <item>Domates</item>
+        <item>Biber</item>
+        <item>Patlıcan</item>
+        <item>Soğan</item>
+        <item>Pirinç</item>
+        <item>Fasulye</item>
+        <item>Barbunya</item>
+        <item>Mercimek</item>
+    </string-array>
 
 </resources>
