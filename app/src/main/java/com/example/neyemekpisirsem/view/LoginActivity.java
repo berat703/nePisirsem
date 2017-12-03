@@ -60,7 +60,7 @@ public class LoginActivity extends Activity {
         setContentView(R.layout.activity_login);
         bt_login = (Button) findViewById(R.id.loginButton);
         bt_cancel = (Button) findViewById(R.id.cancel);
-        mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
+       // mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
 
 
 
@@ -146,7 +146,7 @@ public class LoginActivity extends Activity {
                         Log.d("try", "" + item);
 
 
-                        User_id = item.getId().toString();  // you can get columns data like this
+                      //  User_id = item.getId().toString();  // you can get columns data like this
 
 
                         runOnUiThread(new Runnable() {

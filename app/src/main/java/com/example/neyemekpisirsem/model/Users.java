@@ -36,8 +36,10 @@ public class Users {
                 ", username='" + username + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
+                ", id='" + id + '\'' +
                 ", isAuthor=" + isAuthor +
-                '}';
+
+               '}';
     }
 
     public Users(String id, String name, String username, String email, String password, boolean isAuthor) {
@@ -108,8 +110,5 @@ public class Users {
         return id.equals(users.id);
     }
 
-    @Override
-    public int hashCode() {
-        return id.hashCode();
-    }
+
 }
