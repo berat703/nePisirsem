@@ -117,7 +117,13 @@ public class SearchActivity extends Activity {
                     final MobileServiceList<Foods> result =
                             //    mUser.select("email").execute().get();
                             foodTable.where().field("tag_name").eq(searchedText).execute().get();
-                            Log.d("tag","veri"+result);
+
+                            Log.d("tag","veri"+result.get(0).getName());//burda 0'ın adını getir demişim.For içerisinde 0 dan result.getTotalCount() ' a
+                            //kadar olanı getir dersin.isim, desc,content falan hangisini istersen getirebilirsin.
+                            //tek zorlanılıcak yer bu veriyi baska bir activity de listeleyecegin için başka intent e data taşıman lazım.İnternette kullanımını bulabilirsin.Hatta dur
+                            //link bırakayım buraya kolaylık olur sana da
+                            //https://stackoverflow.com/questions/19286970/using-intents-to-pass-data-between-activities-in-android
+                            //denemedim denersin muhtemelen calısır
 
                 } catch (Exception e) {
                     Log.d("hata", "" + e);
