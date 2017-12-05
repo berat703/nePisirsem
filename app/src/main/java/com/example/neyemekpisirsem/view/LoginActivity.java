@@ -33,7 +33,7 @@ import java.net.MalformedURLException;
 
 public class LoginActivity extends Activity {
     Button bt_login;
-    Button bt_cancel;
+
     Button bt_forgot;
     private MobileServiceClient mClient;
     private MobileServiceTable<Users> mUser;
@@ -59,7 +59,6 @@ public class LoginActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         bt_login = (Button) findViewById(R.id.loginButton);
-        bt_cancel = (Button) findViewById(R.id.cancel);
        // mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
 
 
@@ -80,18 +79,9 @@ public class LoginActivity extends Activity {
             e.printStackTrace();
         }
 
-        lEmail = (EditText) findViewById(R.id.t_username);
-        lPass = (EditText) findViewById(R.id.t_password);
+        lEmail = (EditText) findViewById(R.id.userName);
+        lPass = (EditText) findViewById(R.id.userPass);
 
-
-
-        bt_cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent fp = new Intent(getApplicationContext(), RegisterActivity.class);
-                startActivity(fp);
-            }
-        });
     }
 
     public void add(View view) {
@@ -182,6 +172,7 @@ public class LoginActivity extends Activity {
 
                     }
 
+
                 } catch (Exception exception) {
                     exception.printStackTrace();
                     Log.d("Error", "catching the error");
@@ -190,6 +181,7 @@ public class LoginActivity extends Activity {
             }
 
         }.execute();
+
     }
 
 

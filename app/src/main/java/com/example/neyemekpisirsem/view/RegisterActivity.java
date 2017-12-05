@@ -19,6 +19,15 @@ import com.example.neyemekpisirsem.presenter.login_presenter;
 import com.example.neyemekpisirsem.presenter.register_presenter;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.SettableFuture;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
 import com.microsoft.windowsazure.mobileservices.MobileServiceClient;
 import com.microsoft.windowsazure.mobileservices.authentication.MobileServiceAuthenticationProvider;
 import com.microsoft.windowsazure.mobileservices.http.NextServiceFilterCallback;
@@ -34,7 +43,11 @@ import com.microsoft.windowsazure.mobileservices.table.sync.localstore.SQLiteLoc
 import com.microsoft.windowsazure.mobileservices.table.sync.synchandler.SimpleSyncHandler;
 import com.squareup.okhttp.OkHttpClient;
 
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -64,12 +77,12 @@ public class RegisterActivity extends Activity {
    // EditText edit5;
     Button register;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-
         try {
 
             mClient = new MobileServiceClient(
@@ -88,9 +101,9 @@ public class RegisterActivity extends Activity {
 
             userTable = mClient.getTable(Users.class);
             initLocalStore().get();
-            username=(EditText)findViewById(R.id.t_username);
-            password=(EditText)findViewById(R.id.t_password);
-            email=(EditText)findViewById(R.id.t_email);
+            username=(EditText)findViewById(R.id.userAd);
+            password=(EditText)findViewById(R.id.userPass);
+            email=(EditText)findViewById(R.id.userEmail);
 
 
             // edit4=(EditText)findViewById(R.id.editText4);
@@ -107,6 +120,10 @@ public class RegisterActivity extends Activity {
         }
 
     }
+
+
+
+
 
     public void checkItemInTable(Users item) throws ExecutionException, InterruptedException {
         userTable.update(item).get();

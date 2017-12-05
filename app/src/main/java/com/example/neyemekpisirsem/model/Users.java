@@ -1,8 +1,5 @@
 package com.example.neyemekpisirsem.model;
 
-/**
- * Created by Reklamotv on 23.11.2017.
- */
 
 public class Users {
 
