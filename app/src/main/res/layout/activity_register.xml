@@ -2,95 +2,145 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
-    android:padding="20dp" >
+    >
 
     <ImageView
-        android:id="@+id/yazilimdersiImageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        />
+        android:id="@+id/loginImageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/background2"
+        android:scaleType="centerCrop"
+         />
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
 
-    <EditText
-        android:id="@+id/t_username"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/edittext2"
-        android:ems="10"
-        android:hint="Kullanıcı Adı"
-        android:inputType="textPersonName"
-        android:textColor="#969696"
-        android:textColorHint="#C7C7CD"
-        android:textCursorDrawable="@null"
-        android:layout_marginTop="117dp"
-        android:layout_below="@+id/yazilimdersiImageView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+    android:layout_centerInParent="true">
 
-        <requestFocus />
-    </EditText>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@drawable/colorwhite2"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp">
 
-    <EditText
-        android:id="@+id/t_password"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/t_email"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/edittext2"
-        android:ems="10"
-        android:hint="Şifre"
-        android:inputType="textPassword"
-        android:textColor="#969696"
-        android:textColorHint="#C7C7CD"
-        android:textCursorDrawable="@null" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Kayıt olmak için aşağıdaki formu doldurup kaydol butonuna basınız"
+            android:textStyle="bold"
+            android:textSize="15dp"
+            android:layout_marginBottom="5dp"/>
 
-    <EditText
-        android:id="@+id/t_email"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/t_username"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/edittext2"
-        android:ems="10"
-        android:hint="E-mail Adresi"
-        android:inputType="textEmailAddress"
-        android:textColor="#969696"
-        android:textColorHint="#C7C7CD"
-        android:textCursorDrawable="@null" />
-
-    <Button
-        android:id="@+id/registerButton"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/t_password"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/btnpress"
-        android:padding="10dp"
-        android:text="Kaydol"
-        android:onClick="addItem"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/loginTextView"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/t_password"
-        android:layout_below="@+id/registerButton"
-        android:layout_marginTop="10dp"
-        android:clickable="true"
-        android:gravity="center"
-
-        android:text="Üye misiniz? Giriş yapmak için tıklayın"
-        android:textColor="#969696"
-        android:textSize="14sp" />
+        <AutoCompleteTextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:hint="Ad-Soyad"
+            android:textColorHint="#080808"
+            android:background="@drawable/white2"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:textSize="14sp"
+            android:drawablePadding="5dp"
+            android:paddingStart="10dp"
+            android:inputType="textPersonName"
+            android:id="@+id/userAd"
+            android:layout_marginBottom="10dp"/>
 
 
+        <AutoCompleteTextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:hint="Email"
+            android:textColorHint="#080808"
+            android:background="@drawable/white2"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:textSize="14sp"
+            android:drawablePadding="5dp"
+            android:paddingStart="10dp"
+            android:inputType="textEmailAddress"
+            android:id="@+id/userEmail"
+            android:layout_marginBottom="10dp"/>
+
+        <AutoCompleteTextView
+            android:id="@+id/userName"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginStart="15dp"
+            android:background="@drawable/white2"
+            android:drawablePadding="5dp"
+            android:hint="Kullanıcı Adı"
+            android:inputType="textPersonName"
+            android:paddingStart="10dp"
+            android:textColorHint="#080808"
+            android:textSize="14sp" />
+
+        <AutoCompleteTextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:hint="Şifre"
+            android:textColorHint="#080808"
+            android:background="@drawable/white2"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:textSize="14sp"
+            android:drawablePadding="5dp"
+            android:paddingStart="10dp"
+            android:inputType="textPassword"
+            android:id="@+id/userPass"
+            android:layout_marginBottom="10dp"/>
+
+        <AutoCompleteTextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:hint="Şifre Tekrar"
+            android:textColorHint="#080808"
+            android:background="@drawable/white2"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:textSize="14sp"
+            android:drawablePadding="5dp"
+            android:paddingStart="10dp"
+            android:inputType="textPassword"
+            android:id="@+id/userPass2"
+            android:layout_marginBottom="10dp"/>
+
+        <Button
+            android:id="@+id/registerButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/passwordEditText"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorBackground"
+            android:padding="10dp"
+            android:text="Kaydol"
+            android:onClick="addItem"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/loginTextView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/passwordEditText"
+            android:layout_below="@+id/registerButton"
+            android:layout_marginTop="10dp"
+            android:clickable="true"
+            android:gravity="center"
+
+            android:text="Üye misiniz? Giriş yapmak için tıklayın"
+            android:textColor="#080808"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+</ScrollView>
+
+
+        
 
 </RelativeLayout>

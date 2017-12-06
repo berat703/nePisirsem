@@ -33,7 +33,7 @@ import java.net.MalformedURLException;
 
 public class LoginActivity extends Activity {
     Button bt_login;
-    Button bt_cancel;
+
     Button bt_forgot;
     private MobileServiceClient mClient;
     private MobileServiceTable<Users> mUser;
@@ -59,39 +59,22 @@ public class LoginActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         bt_login = (Button) findViewById(R.id.loginButton);
-        bt_cancel = (Button) findViewById(R.id.cancel);
-       // mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
-
-
-
+        lEmail = (EditText) findViewById(R.id.userName);
+        lPass = (EditText) findViewById(R.id.userPass);
 
         try {
-            // Create the Mobile Service Client instance, using the provided
-            // Mobile Service URL and key
+
             mClient = new MobileServiceClient(
                     "https://neyemekpisirsem.azurewebsites.net",
-                    this)/*.withFilter(new LoginActivity.ProgressFilter())*/;
+                    this);
 
-            // Get the Mobile Service Table instance to use
+
             mUser = mClient.getTable(Users.class);
 
 
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-
-        lEmail = (EditText) findViewById(R.id.t_username);
-        lPass = (EditText) findViewById(R.id.t_password);
-
-
-
-        bt_cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent fp = new Intent(getApplicationContext(), RegisterActivity.class);
-                startActivity(fp);
-            }
-        });
     }
 
     public void add(View view) {
@@ -111,7 +94,7 @@ public class LoginActivity extends Activity {
         }
 
 
-        mProgressBar.setVisibility(ProgressBar.VISIBLE);
+      //  mProgressBar.setVisibility(ProgressBar.VISIBLE);
 
 
         final String mail;
@@ -153,12 +136,9 @@ public class LoginActivity extends Activity {
 
                             public void run() {
 
-
-                                Toast.makeText(getApplicationContext(), "SUCCESS", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Giriş Başarılı!", Toast.LENGTH_SHORT).show();
                                 Intent MainActivity = new Intent(getApplicationContext(), RegisterActivity.class);
                                 startActivity(MainActivity);
-
-
                             }
 
 
@@ -167,29 +147,26 @@ public class LoginActivity extends Activity {
 
                     }
 
-
                     if (validation == false) {
-
                         runOnUiThread(new Runnable() {
                             public void run() {
-                                Toast toast = Toast.makeText(getApplicationContext(), "Email or Password is Wrong", Toast.LENGTH_LONG);
+                                Toast toast = Toast.makeText(getApplicationContext(), "Email yada Parola Yanlış!", Toast.LENGTH_LONG);
                                 toast.setGravity(Gravity.CENTER, 0, 0);
                                 toast.show();
                                 mProgressBar.setVisibility(ProgressBar.INVISIBLE);
                             }
                         });
 
-
                     }
-
-                } catch (Exception exception) {
-                    exception.printStackTrace();
+                    } catch (Exception exception) {
+                     exception.printStackTrace();
                     Log.d("Error", "catching the error");
-                }
+                  }
                 return null;
-            }
+                 }
 
         }.execute();
+
     }
 
 

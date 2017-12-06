@@ -19,6 +19,15 @@ import com.example.neyemekpisirsem.presenter.login_presenter;
 import com.example.neyemekpisirsem.presenter.register_presenter;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.SettableFuture;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
 import com.microsoft.windowsazure.mobileservices.MobileServiceClient;
 import com.microsoft.windowsazure.mobileservices.authentication.MobileServiceAuthenticationProvider;
 import com.microsoft.windowsazure.mobileservices.http.NextServiceFilterCallback;
@@ -34,7 +43,11 @@ import com.microsoft.windowsazure.mobileservices.table.sync.localstore.SQLiteLoc
 import com.microsoft.windowsazure.mobileservices.table.sync.synchandler.SimpleSyncHandler;
 import com.squareup.okhttp.OkHttpClient;
 
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.net.MalformedURLException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -60,16 +73,16 @@ public class RegisterActivity extends Activity {
     EditText username;
     EditText password;
     EditText email;
-   // EditText edit4;
-   // EditText edit5;
+    EditText name;
+    EditText pass2;
     Button register;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-
         try {
 
             mClient = new MobileServiceClient(
@@ -88,15 +101,13 @@ public class RegisterActivity extends Activity {
 
             userTable = mClient.getTable(Users.class);
             initLocalStore().get();
-            username=(EditText)findViewById(R.id.t_username);
-            password=(EditText)findViewById(R.id.t_password);
-            email=(EditText)findViewById(R.id.t_email);
-
-
-            // edit4=(EditText)findViewById(R.id.editText4);
-            // edit5=(EditText)findViewById(R.id.editText5);
+            username=(EditText)findViewById(R.id.userName);
+            pass2=(EditText)findViewById(R.id.userPass2);
+            password=(EditText)findViewById(R.id.userPass);
+            email=(EditText)findViewById(R.id.userEmail);
             register=(Button)findViewById(R.id.registerButton);
-           //   refreshItemsFromTable();
+            name=(EditText)findViewById(R.id.userAd);
+
 
         }
 
@@ -120,12 +131,9 @@ public class RegisterActivity extends Activity {
     @Override
     public boolean onOptionsItemSelected (MenuItem item){
         if (item.getItemId() == R.id.menu_refresh) {
-             //refreshItemsFromTable();
         }
-
         return true;
     }
-
 
     public void checkItem(final Users item) {
         if (mClient == null) {
@@ -164,12 +172,14 @@ public class RegisterActivity extends Activity {
             return;
         }
         final Users item = new Users();
-
+      String passw=password.getText().toString();
+      String passw2=pass2.getText().toString();
         item.setUsername(username.getText().toString());
-            item.setPassword(password.getText().toString());
-            item.setEmail(email.getText().toString());
-            item.setAuthor(false);
-            item.setName("dsgsd");
+        item.setPassword(password.getText().toString());
+        item.setEmail(email.getText().toString());
+        item.setAuthor(false);
+        item.setName(name.getText().toString());
+
         if(item.getUsername().matches("")){
             Toast.makeText(this, "Kullanıcı Adı boş bırakılamaz!", Toast.LENGTH_SHORT).show();
 
@@ -181,6 +191,10 @@ public class RegisterActivity extends Activity {
         if(item.getEmail().matches("")){
             Toast.makeText(this, "E-mail boş bırakılamaz!", Toast.LENGTH_SHORT).show();
 
+        }
+        if(!passw.equals(passw2))
+        {
+            Toast.makeText(this, "Parolalar eşleşmiyor!", Toast.LENGTH_SHORT).show();
         }
         else{
 
