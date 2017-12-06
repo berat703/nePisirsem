@@ -73,8 +73,8 @@ public class RegisterActivity extends Activity {
     EditText username;
     EditText password;
     EditText email;
-   // EditText edit4;
-   // EditText edit5;
+    EditText name;
+    EditText pass2;
     Button register;
 
 
@@ -101,15 +101,14 @@ public class RegisterActivity extends Activity {
 
             userTable = mClient.getTable(Users.class);
             initLocalStore().get();
-            username=(EditText)findViewById(R.id.userAd);
+            username=(EditText)findViewById(R.id.userName);
+            pass2=(EditText)findViewById(R.id.userPass2);
             password=(EditText)findViewById(R.id.userPass);
             email=(EditText)findViewById(R.id.userEmail);
 
-
-            // edit4=(EditText)findViewById(R.id.editText4);
-            // edit5=(EditText)findViewById(R.id.editText5);
             register=(Button)findViewById(R.id.registerButton);
-           //   refreshItemsFromTable();
+            name=(EditText)findViewById(R.id.userAd);
+
 
         }
 
@@ -137,12 +136,9 @@ public class RegisterActivity extends Activity {
     @Override
     public boolean onOptionsItemSelected (MenuItem item){
         if (item.getItemId() == R.id.menu_refresh) {
-             //refreshItemsFromTable();
         }
-
         return true;
     }
-
 
     public void checkItem(final Users item) {
         if (mClient == null) {
@@ -181,12 +177,14 @@ public class RegisterActivity extends Activity {
             return;
         }
         final Users item = new Users();
-
+      String passw=password.getText().toString();
+      String passw2=pass2.getText().toString();
         item.setUsername(username.getText().toString());
-            item.setPassword(password.getText().toString());
-            item.setEmail(email.getText().toString());
-            item.setAuthor(false);
-            item.setName("dsgsd");
+        item.setPassword(password.getText().toString());
+        item.setEmail(email.getText().toString());
+        item.setAuthor(false);
+        item.setName(name.getText().toString());
+
         if(item.getUsername().matches("")){
             Toast.makeText(this, "Kullanıcı Adı boş bırakılamaz!", Toast.LENGTH_SHORT).show();
 
@@ -198,6 +196,10 @@ public class RegisterActivity extends Activity {
         if(item.getEmail().matches("")){
             Toast.makeText(this, "E-mail boş bırakılamaz!", Toast.LENGTH_SHORT).show();
 
+        }
+        if(!passw.equals(passw2))
+        {
+            Toast.makeText(this, "Parolalar eşleşmiyor!", Toast.LENGTH_SHORT).show();
         }
         else{
 
