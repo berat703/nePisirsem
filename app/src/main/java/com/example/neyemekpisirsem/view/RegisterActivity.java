@@ -105,6 +105,7 @@ public class RegisterActivity extends Activity {
             pass2=(EditText)findViewById(R.id.userPass2);
             password=(EditText)findViewById(R.id.userPass);
             email=(EditText)findViewById(R.id.userEmail);
+
             register=(Button)findViewById(R.id.registerButton);
             name=(EditText)findViewById(R.id.userAd);
 
@@ -118,6 +119,10 @@ public class RegisterActivity extends Activity {
         }
 
     }
+
+
+
+
 
     public void checkItemInTable(Users item) throws ExecutionException, InterruptedException {
         userTable.update(item).get();
