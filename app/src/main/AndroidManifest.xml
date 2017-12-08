@@ -30,9 +30,6 @@
         <activity android:name=".view.RegisterActivity">
 
         </activity>
-        <activity android:name=".view.SearchActivity">
-
-        </activity>
     </application>
 
 </manifest>
