@@ -2,6 +2,7 @@ package com.example.neyemekpisirsem.view;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -124,6 +125,10 @@ public class SearchActivity extends Activity {
                             //link bırakayım buraya kolaylık olur sana da
                             //https://stackoverflow.com/questions/19286970/using-intents-to-pass-data-between-activities-in-android
                             //denemedim denersin muhtemelen calısır
+                            String name = result.get(0).getName().toString();
+                     Intent i = new Intent(getApplicationContext(),FoodActivity.class);
+                     i.putExtra("deger",name);
+                     startActivity(i);
 
                 } catch (Exception e) {
                     Log.d("hata", "" + e);
