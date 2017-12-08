@@ -62,6 +62,7 @@ public class LoginActivity extends Activity {
         lEmail = (EditText) findViewById(R.id.userName);
         lPass = (EditText) findViewById(R.id.userPass);
 
+
         try {
 
             mClient = new MobileServiceClient(
@@ -75,6 +76,7 @@ public class LoginActivity extends Activity {
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
+
     }
 
     public void add(View view) {
@@ -160,6 +162,7 @@ public class LoginActivity extends Activity {
                     }
                     } catch (Exception exception) {
                      exception.printStackTrace();
+
                     Log.d("Error", "catching the error");
                   }
                 return null;
