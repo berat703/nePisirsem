@@ -14,6 +14,9 @@ import android.widget.TextView;
 import com.example.neyemekpisirsem.R;
 import com.example.neyemekpisirsem.model.Foods;
 import com.example.neyemekpisirsem.model.Users;
+import com.google.common.base.Predicate;
+import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
 import com.microsoft.windowsazure.mobileservices.MobileServiceClient;
 import com.microsoft.windowsazure.mobileservices.MobileServiceList;
 import com.microsoft.windowsazure.mobileservices.http.OkHttpClientFactory;
@@ -21,12 +24,18 @@ import com.microsoft.windowsazure.mobileservices.table.MobileServiceTable;
 import com.squareup.okhttp.OkHttpClient;
 
 import java.net.MalformedURLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
+
+import static junit.framework.Assert.assertEquals;
 
 
 public class FoodActivity extends Activity {
 
+    List <Integer> rand_list = new ArrayList();
+    int sayac=0;
     int rand_deger=0;
     Random rand = new Random();
     Button degistir;
@@ -88,8 +97,11 @@ public class FoodActivity extends Activity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Random rand = new Random();
-                                int rand_deger = rand.nextInt(result.getTotalCount());
+                                Log.d("berat","berat"+rand_list.contains(1));
+                                rand_deger = rand.nextInt(result.getTotalCount());
+                                if(find_element(rand_deger)){
+                                    rand_list.add(rand_deger);
+                                }
                                 content.setText(result.get(rand_deger).getContent());
                             }
                         });
@@ -107,6 +119,29 @@ public class FoodActivity extends Activity {
         }
 
     }
+
+    public boolean find_element (int deger) {
+        boolean x=true;
+        for (Integer number : rand_list) {
+            if (number != deger) {
+                x=true;
+
+            }
+            else{
+                x=false;
+                break;
+            }
+        }
+        return x;
+    }
+
+
+/**
+ * Son kalınan yer: int dizi elemanları 0 olarak atandıgı için index 0 da sorun olusturuyor
+ *
+ *
+ * **/
+
 
     public void changeText(final String data){
         Thread t = new Thread() {
@@ -133,10 +168,11 @@ public class FoodActivity extends Activity {
     public void randomYemekGetir(View view) {
         Log.d("asd","asd");
         rand_deger = rand.nextInt(tag.getTotalCount());
-       // content.setText(tag.get(rand_deger).getContent());
-        changeText(tag.get(rand_deger).getName());
+        if(find_element(rand_deger)){
+            rand_list.add(rand_deger);
+            changeText(tag.get(rand_deger).getName());
+        }
 
-        /**finish();
-        startActivity(getIntent());**/
+
     }
 }
