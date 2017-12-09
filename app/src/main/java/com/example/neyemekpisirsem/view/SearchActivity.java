@@ -2,6 +2,7 @@ package com.example.neyemekpisirsem.view;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -29,6 +30,7 @@ import com.squareup.okhttp.OkHttpClient;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -106,33 +108,11 @@ public class SearchActivity extends Activity {
     }
 
     public void searchFunction(View view) {
+        Log.d("asd","asd");
         final String searchedText = search_text.getText().toString();
 
-        new AsyncTask<Void, Void, Void>() {
-
-            @Override
-            protected Void doInBackground(Void... voids) {
-
-                try {
-                    final MobileServiceList<Foods> result =
-                            //    mUser.select("email").execute().get();
-                            foodTable.where().field("tag_name").eq(searchedText).execute().get();
-
-                            Log.d("tag","veri"+result.get(0).getName());//burda 0'ın adını getir demişim.For içerisinde 0 dan result.getTotalCount() ' a
-                            //kadar olanı getir dersin.isim, desc,content falan hangisini istersen getirebilirsin.
-                            //tek zorlanılıcak yer bu veriyi baska bir activity de listeleyecegin için başka intent e data taşıman lazım.İnternette kullanımını bulabilirsin.Hatta dur
-                            //link bırakayım buraya kolaylık olur sana da
-                            //https://stackoverflow.com/questions/19286970/using-intents-to-pass-data-between-activities-in-android
-                            //denemedim denersin muhtemelen calısır
-
-                } catch (Exception e) {
-                    Log.d("hata", "" + e);
-                }
-
-                return null;
-
-            }
-
-        }.execute();
+        Intent i = new Intent(getApplicationContext(),FoodActivity.class);
+        i.putExtra("deger",searchedText);
+        startActivity(i);
     }
 }

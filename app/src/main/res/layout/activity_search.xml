@@ -28,7 +28,7 @@
         android:layout_weight="1"
         android:ems="10"
         android:inputType="text|textImeMultiLine|textPersonName"
-        android:text="Ara..."
+        android:hint="Ara..."
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>

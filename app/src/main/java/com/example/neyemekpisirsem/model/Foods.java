@@ -18,6 +18,8 @@ public class Foods {
     @com.google.gson.annotations.SerializedName("content")
     private String content;
 
+    private Tags tags;
+
     /*** CONSTRUCTOR *********/
     public Foods(){
 
@@ -71,6 +73,14 @@ public class Foods {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Tags getTags() {
+        return tags;
+    }
+
+    public void setTags(Tags tags) {
+        this.tags = tags;
     }
 
     /*** EQUALS & HASH *********/

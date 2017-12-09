@@ -11,26 +11,27 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:layout_gravity="center">
+
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/foodImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
-        android:layout_marginTop="50dp"
         android:layout_marginBottom="20dp"
+        android:layout_marginTop="50dp"
         android:src="@android:drawable/ic_menu_gallery" />
 
     <TextView
-        android:id="@+id/foodList"
+        android:id="@+id/foodContent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
-        android:layout_marginTop="50dp"
         android:layout_marginBottom="150dp"
+        android:layout_marginTop="50dp"
         android:text="TextView" />
 
 
@@ -42,21 +43,23 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:layout_marginTop="10dp">
+
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/degistirButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/button3"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_alignTop="@+id/tarifButton"
         android:layout_marginBottom="10dp"
-        android:text="Değiştir"
-        android:background="@color/colorBackground"/>
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/colorBackground"
+        android:onClick="randomYemekGetir"
+        android:text="Değiştir" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/tarifButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
