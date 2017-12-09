@@ -2,6 +2,7 @@ package com.example.neyemekpisirsem.view;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -296,6 +297,10 @@ public class RegisterActivity extends Activity {
         } else {
             return task.execute();
         }
+    }
+
+    public void redirect_to_login(View view) {
+        startActivity(new Intent(getApplicationContext(),LoginActivity.class));
     }
 
 /*

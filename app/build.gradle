@@ -3,7 +3,7 @@ android {
     compileSdkVersion 23
     buildToolsVersion '26.0.2'
     defaultConfig {
-        applicationId "com.example.zumoappname"
+        applicationId "com.example.zumoapp"
         minSdkVersion 19
         targetSdkVersion 23
         versionCode 1

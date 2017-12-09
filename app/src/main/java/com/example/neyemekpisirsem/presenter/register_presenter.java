@@ -16,9 +16,6 @@ import com.example.neyemekpisirsem.view.RegisterActivity;
 
 import static com.microsoft.windowsazure.mobileservices.table.query.QueryOperations.val;
 import com.example.neyemekpisirsem.view.*;
-/**
- * Created by Pınar Köroğlu on 24.11.2017.
- */
 
 public class register_presenter extends ArrayAdapter<Users> {
     Button register;
@@ -56,14 +53,6 @@ public class register_presenter extends ArrayAdapter<Users> {
 
         register=(Button)row.findViewById(R.id.registerButton);
 
-        register.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View arg0) {
-
-
-            }
-        });
         row.setTag(users);
 
         return row;
