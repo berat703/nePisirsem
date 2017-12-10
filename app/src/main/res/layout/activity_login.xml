@@ -1,97 +1,82 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-    >
-
-<ImageView
-    android:id="@+id/loginImageView"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:src="@drawable/background2"
-    android:scaleType="centerCrop"
-    />
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-
-    android:layout_centerInParent="true"
-    android:id="@+id/scrollView2">
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/accent"
+    android:fitsSystemWindows="true">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@drawable/colorwhite2"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="30dp">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="56dp"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp">
 
-        <AutoCompleteTextView
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="192dp"
+            android:layout_height="112dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="24dp"
+            android:src="@drawable/logo" />
+
+        <!-- Email Label -->
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:hint="Kullanıcı Adı"
-            android:textColorHint="#080808"
-            android:background="@drawable/white2"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
 
-            android:textSize="15sp"
-            android:drawablePadding="5dp"
-            android:drawableLeft="@mipmap/ic_person"
+            <EditText
+                android:id="@+id/userName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Kullanıcı Adı"
+                android:textColorHighlight="@color/primary"
+                android:inputType="textMultiLine|textPersonName"
+                android:textColorHint="@color/black" />
+        </android.support.design.widget.TextInputLayout>
 
-            android:paddingStart="10dp"
-            android:inputType="textPersonName"
-            android:id="@+id/userName"
-            android:layout_marginTop="50dp"
-            android:layout_marginBottom="20dp"/>
-
-        <AutoCompleteTextView
-            android:id="@+id/userPass"
+        <!-- Password Label -->
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/white2"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
 
-            android:drawableLeft="@mipmap/ic_password"
-            android:drawablePadding="5dp"
-            android:hint="Şifre"
-            android:inputType="textPassword"
-            android:paddingStart="10dp"
-            android:textColorHint="#080808"
-            android:textSize="15sp" />
+            <EditText
+                android:id="@+id/userPass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Parola"
+                android:shadowColor="@color/primary"
+                android:inputType="textMultiLine|textPassword"
+                android:textColorHint="@color/black" />
+        </android.support.design.widget.TextInputLayout>
 
-
-
-        <Button
+        <android.support.v7.widget.AppCompatButton
             android:id="@+id/loginButton"
+            android:background="@color/primary"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/passwordEditText"
-            android:layout_centerHorizontal="true"
             android:onClick="add"
-            android:layout_marginTop="10dp"
-            android:padding="10dp"
-            android:textSize="16sp"
-            android:textColor="#FFFFFF"
-            android:text="GİRİŞ YAP"
-            android:layout_marginBottom="5dp"/>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:textColor="@color/accent"
+            android:layout_marginBottom="24dp"
+            android:padding="12dp"
+            android:text="Login"/>
 
-        <TextView
-            android:id="@+id/registerTextView"
+        <TextView android:id="@+id/registerTextView"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/passwordEditText"
-            android:layout_below="@+id/loginButton"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="24dp"
+            android:textColor="@color/primary"
             android:clickable="true"
+            android:onClick="getRegister"
+            android:text="Üye değil misin? Hemen bir hesap oluştur!"
             android:gravity="center"
+            android:textSize="16dip"/>
 
-            android:text="Üye değil misiniz? Kayıt Ol"
-            android:onClick="onClick"
-            android:textColor="#080808"
-            android:textSize="14sp" />
     </LinearLayout>
-
 </ScrollView>
-
-
-</RelativeLayout>
