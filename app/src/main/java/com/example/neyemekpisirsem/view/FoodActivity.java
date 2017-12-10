@@ -1,6 +1,7 @@
 package com.example.neyemekpisirsem.view;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -44,7 +45,7 @@ public class FoodActivity extends Activity {
     ImageView image;
     private MobileServiceTable<Foods> foodTable;
     private MobileServiceList<Foods> tag;
-
+    private ProgressDialog mProgressBar_;
     private MobileServiceClient mClient;
 
     @Override
@@ -55,7 +56,7 @@ public class FoodActivity extends Activity {
         tarif= (Button) findViewById(R.id.tarifButton);
         content = (TextView) findViewById(R.id.foodContent);
         image = (ImageView) findViewById(R.id.foodImage);
-
+        mProgressBar_=new ProgressDialog(this);
         try {
 
             mClient = new MobileServiceClient(
@@ -166,13 +167,35 @@ public class FoodActivity extends Activity {
     }
 
     public void randomYemekGetir(View view) {
-        Log.d("asd","asd");
-        rand_deger = rand.nextInt(tag.getTotalCount());
-        if(find_element(rand_deger)){
-            rand_list.add(rand_deger);
-            changeText(tag.get(rand_deger).getName());
-        }
+        final int zaman=100;
+        mProgressBar_.setMessage("Yemekler aranıyor...");
+        mProgressBar_.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        mProgressBar_.show();
+        final Thread t=new Thread(){
+            @Override
+            public void run(){
+                int ilerleme=0;
+                while(ilerleme<=zaman){
+                    try{
+                        Thread.sleep(400);
+                        ilerleme=ilerleme+50;
+                        mProgressBar_.setProgress(ilerleme);
 
+                    }catch (InterruptedException e){
+                        e.printStackTrace();
+
+                    } rand_deger = rand.nextInt(tag.getTotalCount());
+                    if(find_element(rand_deger))
+                    {
+                        rand_list.add(rand_deger);
+                        changeText(tag.get(rand_deger).getName());
+                    }}
+                    mProgressBar_.cancel();
+            }
+
+        };
+        t.start();
+        Log.d("asd","asd");
 
     }
 }

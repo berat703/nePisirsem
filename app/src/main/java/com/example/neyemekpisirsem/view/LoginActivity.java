@@ -1,6 +1,7 @@
 package com.example.neyemekpisirsem.view;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -40,7 +41,7 @@ public class LoginActivity extends Activity {
 
     EditText lEmail;
     EditText lPass;
-    private ProgressBar mProgressBar;
+    private ProgressDialog mProgressBar;
 
     String lt;
     String lg;
@@ -61,6 +62,7 @@ public class LoginActivity extends Activity {
         bt_login = (Button) findViewById(R.id.loginButton);
         lEmail = (EditText) findViewById(R.id.userName);
         lPass = (EditText) findViewById(R.id.userPass);
+        mProgressBar=new ProgressDialog(this);
 
 
         try {
@@ -83,18 +85,14 @@ public class LoginActivity extends Activity {
 
         if (lEmail.getText().toString().trim().equals("")) {
             lEmail.setError("Email is required!");
-            mProgressBar.setVisibility(ProgressBar.INVISIBLE);
             return;
-            //You can Toast a message here that the Username is Empty
         }
 
         if (lPass.getText().toString().trim().equals("")) {
             lPass.setError("Password is required!");
-            mProgressBar.setVisibility(ProgressBar.INVISIBLE);
             return;
-            //You can Toast a message here that the Username is Empty
         }
-
+        final int zaman=50;
 
       //  mProgressBar.setVisibility(ProgressBar.VISIBLE);
 
@@ -104,7 +102,9 @@ public class LoginActivity extends Activity {
 
         mail = lEmail.getText().toString();
         pwd = lPass.getText().toString();
-
+        mProgressBar.setMessage("Bilgileriniz kontrol ediliyor.");
+        mProgressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        mProgressBar.show();
 
         new AsyncTask<Void, Void, Void>() {
 
@@ -125,14 +125,28 @@ public class LoginActivity extends Activity {
 
                     for (Users item : result) {
 
+                       final Thread t=new Thread(){
+                        @Override
+                        public void run(){
+                            int ilerleme=0;
+                            while(ilerleme<=zaman){
+                                try{
+                                    Thread.sleep(400);
+                                    ilerleme=ilerleme+10;
+                                    mProgressBar.setProgress(ilerleme);
+
+
+                                }catch (InterruptedException e){
+                                    e.printStackTrace();
+
+                                }
+                            }
+                        }
+                        };
                         validation = item.getPassword().toString().equalsIgnoreCase(pwd);
 
 
                         Log.d("try", "" + item);
-
-
-                      //  User_id = item.getId().toString();  // you can get columns data like this
-
 
                         runOnUiThread(new Runnable() {
 
@@ -155,7 +169,7 @@ public class LoginActivity extends Activity {
                                 Toast toast = Toast.makeText(getApplicationContext(), "Email yada Parola Yanlış!", Toast.LENGTH_LONG);
                                 toast.setGravity(Gravity.CENTER, 0, 0);
                                 toast.show();
-                                mProgressBar.setVisibility(ProgressBar.INVISIBLE);
+
                             }
                         });
 
