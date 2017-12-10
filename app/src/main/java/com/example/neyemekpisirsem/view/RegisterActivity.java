@@ -2,6 +2,7 @@ package com.example.neyemekpisirsem.view;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -69,15 +70,13 @@ public class RegisterActivity extends Activity {
     private MobileServiceAuthenticationProvider auth;
 
     private login_presenter loginPresenter;
-
-    private ProgressBar mProgressBar;
     EditText username;
     EditText password;
     EditText email;
     EditText name;
     EditText pass2;
     Button register;
-
+    private ProgressDialog mProgressBar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -106,7 +105,7 @@ public class RegisterActivity extends Activity {
             pass2=(EditText)findViewById(R.id.userPass2);
             password=(EditText)findViewById(R.id.userPass);
             email=(EditText)findViewById(R.id.userEmail);
-
+            mProgressBar=new ProgressDialog(this);
             register=(Button)findViewById(R.id.registerButton);
             name=(EditText)findViewById(R.id.userAd);
 
@@ -120,10 +119,6 @@ public class RegisterActivity extends Activity {
         }
 
     }
-
-
-
-
 
     public void checkItemInTable(Users item) throws ExecutionException, InterruptedException {
         userTable.update(item).get();
@@ -178,8 +173,8 @@ public class RegisterActivity extends Activity {
             return;
         }
         final Users item = new Users();
-      String passw=password.getText().toString();
-      String passw2=pass2.getText().toString();
+        String passw=password.getText().toString();
+        String passw2=pass2.getText().toString();
         item.setUsername(username.getText().toString());
         item.setPassword(password.getText().toString());
         item.setEmail(email.getText().toString());
@@ -225,8 +220,6 @@ public class RegisterActivity extends Activity {
             runAsyncTask(task);
     }
     }
-
-
 
     private AsyncTask<Void, Void, Void> initLocalStore() throws MobileServiceLocalStoreException, ExecutionException, InterruptedException {
 

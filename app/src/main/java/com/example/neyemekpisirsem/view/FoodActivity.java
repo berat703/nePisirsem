@@ -52,7 +52,7 @@ public class FoodActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_food);
+        setContentView(R.layout.nepisirsem_food);
         degistir = (Button) findViewById(R.id.degistirButton);
         tarif= (Button) findViewById(R.id.tarifButton);
         content = (TextView) findViewById(R.id.foodContent);

@@ -14,10 +14,11 @@
         android:paddingLeft="24dp"
         android:paddingRight="24dp">
 
-        <ImageView android:src="@drawable/logo"
+        <ImageView
+            android:src="@drawable/logo"
             android:layout_width="wrap_content"
-            android:layout_height="72dp"
-            android:layout_marginBottom="24dp"
+            android:layout_height="60dp"
+            android:layout_marginBottom="15dp"
             android:layout_gravity="center_horizontal" />
 
         <!--  Name Label -->
@@ -34,6 +35,21 @@
                 android:hint="Ad-Soyad" />
         </android.support.design.widget.TextInputLayout>
 
+        <!--  Name Label -->
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp">
+
+            <EditText
+                android:id="@+id/userName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Kullanıcı Adı"
+                android:inputType="textCapWords"
+                android:textColorHint="@color/black" />
+        </android.support.design.widget.TextInputLayout>
         <!-- Email Label -->
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
@@ -84,6 +100,7 @@
             android:layout_marginBottom="24dp"
             android:background="@color/primary"
             android:padding="12dp"
+            android:onClick="addItem"
             android:textColor="@color/accent"
             android:text="Kullanıcı Oluştur"/>
 
@@ -99,4 +116,6 @@
             android:textSize="16dip"/>
 
     </LinearLayout>
+
+
 </ScrollView>
