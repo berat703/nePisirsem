@@ -88,12 +88,12 @@ public class LoginActivity extends Activity {
     public void add(View view) {
 
         if (lEmail.getText().toString().trim().equals("")) {
-            lEmail.setError("Email is required!");
+            lEmail.setError("Email boş bırakılamaz!");
             return;
         }
 
         if (lPass.getText().toString().trim().equals("")) {
-            lPass.setError("Password is required!");
+            lPass.setError("Parola boş bırakılamaz!");
             return;
         }
 
@@ -105,7 +105,7 @@ public class LoginActivity extends Activity {
         mProgressBar.setMessage("Bilgileriniz kontrol ediliyor.");
         mProgressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         mProgressBar.show();
-
+       final int zaman=100;
         new AsyncTask<Void, Void, Void>() {
 
             Boolean validation = false;
@@ -121,26 +121,37 @@ public class LoginActivity extends Activity {
                              if(result!=null){
                                  validation=true;
                              }
-
-                    Log.d("try", "got the result");
-
-
                     if(validation=true){
 
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                mProgressBar.cancel();
-                                //**diyalog penceresi azcık ekranda gorunsun hemen gidiyo
-                                //** unutmayalım onu yapmayı
-                                createAndShowDialog("Giriş Başarılı,Arama Sayfasına Yönlendiriliyorsunz...","Başarılı!");
+
+                                final Thread t=new Thread(){
+                                    @Override
+                                    public void run(){
+                                        int ilerleme=0;
+                                        while(ilerleme<=zaman){
+                                            try{
+                                                Thread.sleep(400);
+                                                ilerleme=ilerleme+50;
+                                                mProgressBar.setProgress(ilerleme);
+
+                                            }catch (InterruptedException e){
+                                                e.printStackTrace();
+
+                                            }
+                                        }
+                                        mProgressBar.cancel();
+                                    }
+
+                                };
+                                t.start();
                                 Intent search = new Intent(getApplicationContext(), SearchActivity.class);
                                 startActivity(search);
                             }
                         });
-
                     }
-
                     if (validation == false) {
                         runOnUiThread(new Runnable() {
                             public void run() {
@@ -150,7 +161,6 @@ public class LoginActivity extends Activity {
 
                             }
                         });
-
                     }
                     } catch (Exception exception) {
                      exception.printStackTrace();
