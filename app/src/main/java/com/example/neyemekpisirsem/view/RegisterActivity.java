@@ -83,7 +83,7 @@ public class RegisterActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        setContentView(R.layout.nepisirsem_register);
         try {
 
             mClient = new MobileServiceClient(
@@ -301,6 +301,11 @@ public class RegisterActivity extends Activity {
 
     public void redirect_to_login(View view) {
         startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+    }
+
+    public void getLogin(View view) {
+        Intent i = new Intent(getApplicationContext(),LoginActivity.class);
+        startActivity(i);
     }
 
 /*

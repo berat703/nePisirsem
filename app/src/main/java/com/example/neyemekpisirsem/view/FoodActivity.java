@@ -1,6 +1,7 @@
 package com.example.neyemekpisirsem.view;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -167,6 +168,11 @@ public class FoodActivity extends Activity {
     }
 
     public void randomYemekGetir(View view) {
+        if(rand_list.size()==tag.getTotalCount()){
+            createAndShowDialog("Yemeklerin sonuna geldik..","Maalesef :(");
+            Intent i = new Intent(getApplicationContext(),SearchActivity.class);
+            startActivity(i);
+        }
         final int zaman=100;
         mProgressBar_.setMessage("Yemekler aranıyor...");
         mProgressBar_.setProgressStyle(ProgressDialog.STYLE_SPINNER);
@@ -197,5 +203,20 @@ public class FoodActivity extends Activity {
         t.start();
         Log.d("asd","asd");
 
+    }
+    private void createAndShowDialog(Exception exception, String title) {
+        Throwable ex = exception;
+        if(exception.getCause() != null){
+            ex = exception.getCause();
+        }
+        createAndShowDialog(ex.getMessage(), title);
+    }
+
+    private void createAndShowDialog(final String message, final String title) {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setMessage(message);
+        builder.setTitle(title);
+        builder.create().show();
     }
 }

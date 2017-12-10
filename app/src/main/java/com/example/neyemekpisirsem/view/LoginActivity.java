@@ -1,6 +1,7 @@
 package com.example.neyemekpisirsem.view;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,6 +12,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -28,13 +30,15 @@ import com.microsoft.windowsazure.mobileservices.table.MobileServiceTable;
 
 import java.net.MalformedURLException;
 
+import static android.os.SystemClock.sleep;
+
 /**
  * Created by Pınar Köroğlu on 24.11.2017.
  */
 
 public class LoginActivity extends Activity {
     Button bt_login;
-
+    ImageView image;
     Button bt_forgot;
     private MobileServiceClient mClient;
     private MobileServiceTable<Users> mUser;
@@ -58,7 +62,7 @@ public class LoginActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.nepisirsem_login);
         bt_login = (Button) findViewById(R.id.loginButton);
         lEmail = (EditText) findViewById(R.id.userName);
         lPass = (EditText) findViewById(R.id.userPass);
@@ -92,10 +96,6 @@ public class LoginActivity extends Activity {
             lPass.setError("Password is required!");
             return;
         }
-        final int zaman=50;
-
-      //  mProgressBar.setVisibility(ProgressBar.VISIBLE);
-
 
         final String mail;
         final String pwd;
@@ -115,51 +115,29 @@ public class LoginActivity extends Activity {
                 Log.d("try", "do in background");
                 try {
                     final MobileServiceList<Users> result =
-                        //    mUser.select("email").execute().get();
                             mUser.where().field("email").eq(mail).and(mUser.where().field("password").eq(pwd)).execute().get();
                              Log.d("tag","asd"+result);
 
+                             if(result!=null){
+                                 validation=true;
+                             }
 
                     Log.d("try", "got the result");
 
 
-                    for (Users item : result) {
-
-                       final Thread t=new Thread(){
-                        @Override
-                        public void run(){
-                            int ilerleme=0;
-                            while(ilerleme<=zaman){
-                                try{
-                                    Thread.sleep(400);
-                                    ilerleme=ilerleme+10;
-                                    mProgressBar.setProgress(ilerleme);
-
-
-                                }catch (InterruptedException e){
-                                    e.printStackTrace();
-
-                                }
-                            }
-                        }
-                        };
-                        validation = item.getPassword().toString().equalsIgnoreCase(pwd);
-
-
-                        Log.d("try", "" + item);
+                    if(validation=true){
 
                         runOnUiThread(new Runnable() {
-
+                            @Override
                             public void run() {
-
-                                Toast.makeText(getApplicationContext(), "Giriş Başarılı!", Toast.LENGTH_SHORT).show();
-                                Intent MainActivity = new Intent(getApplicationContext(), RegisterActivity.class);
-                                startActivity(MainActivity);
+                                mProgressBar.cancel();
+                                //**diyalog penceresi azcık ekranda gorunsun hemen gidiyo
+                                //** unutmayalım onu yapmayı
+                                createAndShowDialog("Giriş Başarılı,Arama Sayfasına Yönlendiriliyorsunz...","Başarılı!");
+                                Intent search = new Intent(getApplicationContext(), SearchActivity.class);
+                                startActivity(search);
                             }
-
-
                         });
-
 
                     }
 
@@ -186,36 +164,16 @@ public class LoginActivity extends Activity {
 
     }
 
+    public void getRegister(View view) {
+        Intent i = new Intent(getApplicationContext(),RegisterActivity.class);
+        startActivity(i);
+    }
+    private void createAndShowDialog(final String message, final String title) {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-    //   @Override
-  /*  public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }*/
-
-    private class ProgressFilter implements ServiceFilter {
-
-        @Override
-        public ListenableFuture<ServiceFilterResponse> handleRequest(ServiceFilterRequest request, NextServiceFilterCallback nextServiceFilterCallback) {
-
-            final SettableFuture<ServiceFilterResponse> resultFuture = SettableFuture.create();
-
-
-
-            ListenableFuture<ServiceFilterResponse> future = nextServiceFilterCallback.onNext(request);
-
-
-            return resultFuture;
-        }
+        builder.setMessage(message);
+        builder.setTitle(title);
+        builder.create().show();
     }
 
 }

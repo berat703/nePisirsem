@@ -6,8 +6,8 @@
 
     <ImageView
         android:id="@+id/loginImageView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="192dp"
+        android:layout_height="112dp"
         android:src="@drawable/background2"
         android:scaleType="centerCrop"
          />
