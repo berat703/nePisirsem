@@ -3,6 +3,8 @@ package com.example.neyemekpisirsem.view;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -48,6 +50,7 @@ public class FoodActivity extends Activity {
     private MobileServiceList<Foods> tag;
     private ProgressDialog mProgressBar_;
     private MobileServiceClient mClient;
+    Context ctx;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -167,12 +170,29 @@ public class FoodActivity extends Activity {
         t.start();
     }
 
+    public void EndOfList(){
+       try{
+           AlertDialog.Builder dlgAlert  = new AlertDialog.Builder(this);
+           dlgAlert.setMessage("Yemeklerin sonuna geldik.Farklı yemekler aramaya ne dersin?");
+           dlgAlert.setTitle("Bunu söylemeye çekiniyoruz ama...");
+           dlgAlert.setPositiveButton("OK", null);
+           dlgAlert.setCancelable(true);
+           dlgAlert.create().show();
+           dlgAlert.setPositiveButton("OK",
+                   new DialogInterface.OnClickListener() {
+                       public void onClick(DialogInterface dialog, int which) {
+                           Intent i = new Intent(getApplicationContext(),SearchActivity.class);
+                           startActivity(i);
+                       }
+                   });
+       }catch(Exception e){
+           Log.d("ad","ads...........:"+e);
+       }
+
+    }
+
     public void randomYemekGetir(View view) {
-        if(rand_list.size()==tag.getTotalCount()){
-            createAndShowDialog("Yemeklerin sonuna geldik..","Maalesef :(");
-            Intent i = new Intent(getApplicationContext(),SearchActivity.class);
-            startActivity(i);
-        }
+
         final int zaman=100;
         mProgressBar_.setMessage("Yemekler aranıyor...");
         mProgressBar_.setProgressStyle(ProgressDialog.STYLE_SPINNER);
@@ -181,22 +201,43 @@ public class FoodActivity extends Activity {
             @Override
             public void run(){
                 int ilerleme=0;
-                while(ilerleme<=zaman){
+                while(ilerleme<zaman){
                     try{
                         Thread.sleep(400);
-                        ilerleme=ilerleme+50;
+                        ilerleme=ilerleme+100;
                         mProgressBar_.setProgress(ilerleme);
-
                     }catch (InterruptedException e){
                         e.printStackTrace();
 
-                    } rand_deger = rand.nextInt(tag.getTotalCount());
-                    if(find_element(rand_deger))
-                    {
-                        rand_list.add(rand_deger);
-                        changeText(tag.get(rand_deger).getName());
-                    }}
-                    mProgressBar_.cancel();
+                    }
+
+                    if(rand_list.size()==tag.getTotalCount()){
+                        mProgressBar_.cancel();
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                EndOfList();
+                            }
+                        });
+                    }
+                    else{
+                        while(!find_element(rand_deger)){
+                            rand_deger = rand.nextInt(tag.getTotalCount());
+                        }
+
+                        if(find_element(rand_deger))
+                        {
+                            changeText(tag.get(rand_deger).getName());
+                            rand_list.add(rand_deger);
+                        }
+
+
+                        mProgressBar_.cancel();
+                    }
+
+
+
+                }
             }
 
         };
