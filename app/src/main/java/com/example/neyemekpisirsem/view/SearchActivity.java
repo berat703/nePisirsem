@@ -50,7 +50,7 @@ public class SearchActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search);
+        setContentView(R.layout.nepisirsem_search);
         search_text = (EditText) findViewById(R.id.searchText);
         search_button = (Button) findViewById(R.id.searchButton);
         try {
