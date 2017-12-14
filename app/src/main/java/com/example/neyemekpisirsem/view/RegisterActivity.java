@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -172,6 +173,7 @@ public class RegisterActivity extends Activity {
         if (mClient == null) {
             return;
         }
+        boolean isSuccess=false;
         final Users item = new Users();
         String passw=password.getText().toString();
         String passw2=pass2.getText().toString();
@@ -199,7 +201,8 @@ public class RegisterActivity extends Activity {
         }
         else{
 
-            Toast.makeText(this,"Kaydınız başarı ile oluşturulmuştur.",Toast.LENGTH_LONG).show();
+            Toast.makeText(this,"Kaydınız başarı ile oluşturulmuştur,Login sayfasina yönlendiriliyorsunuz.",Toast.LENGTH_LONG).show();
+            isSuccess=true;
             AsyncTask<Void, Void, Void> task = new AsyncTask<Void, Void, Void>() {
                 @Override
                 protected Void doInBackground(Void... params) {
@@ -217,7 +220,22 @@ public class RegisterActivity extends Activity {
                 }
             };
 
+
+
             runAsyncTask(task);
+            if(isSuccess==true){
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+
+                        Intent i = new Intent(getApplicationContext(),LoginActivity.class);
+                        startActivity(i);
+
+                    }
+                }, 2000);   //5 seconds
+            }
+
+
     }
     }
 

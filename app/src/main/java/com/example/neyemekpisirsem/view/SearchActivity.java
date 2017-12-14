@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import com.example.neyemekpisirsem.R;
 import com.example.neyemekpisirsem.model.Foods;
@@ -108,11 +109,17 @@ public class SearchActivity extends Activity {
     }
 
     public void searchFunction(View view) {
-        Log.d("asd","asd");
-        final String searchedText = search_text.getText().toString();
 
-        Intent i = new Intent(getApplicationContext(),FoodActivity.class);
-        i.putExtra("deger",searchedText);
-        startActivity(i);
+        final String searchedText = search_text.getText().toString();
+if(searchedText.matches("")) {
+    Toast.makeText(this, "Lütfen aramak istediğiniz malzemeyi giriniz!", Toast.LENGTH_SHORT).show();
+}
+else{
+    Intent i = new Intent(getApplicationContext(), FoodActivity.class);
+    i.putExtra("deger", searchedText);
+    startActivity(i);
+}
+
+
     }
 }

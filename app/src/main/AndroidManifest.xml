@@ -20,7 +20,7 @@
         android:label="@string/app_name">
 
         <activity
-            android:name=".view.OpeningActivity"
+            android:name=".view.RegisterActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,7 +28,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.RegisterActivity"
+        <activity android:name=".view.OpeningActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
