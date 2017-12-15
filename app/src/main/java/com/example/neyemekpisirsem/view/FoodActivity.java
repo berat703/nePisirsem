@@ -43,12 +43,13 @@ public class FoodActivity extends Activity {
     int rand_deger=0;
     Random rand = new Random();
     Button degistir;
+    private ProgressDialog mProgressBar;
+
     Button tarif;
     TextView content;
     ImageView image;
     private MobileServiceTable<Foods> foodTable;
     private MobileServiceList<Foods> tag;
-    private ProgressDialog mProgressBar_;
     private MobileServiceClient mClient;
     Context ctx;
 
@@ -60,7 +61,7 @@ public class FoodActivity extends Activity {
         tarif= (Button) findViewById(R.id.tarifButton);
         content = (TextView) findViewById(R.id.foodContent);
         image = (ImageView) findViewById(R.id.foodImage);
-        mProgressBar_=new ProgressDialog(this);
+        mProgressBar=new ProgressDialog(this);
         try {
 
             mClient = new MobileServiceClient(
@@ -87,7 +88,9 @@ public class FoodActivity extends Activity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
            final String value = extras.getString("deger");
-
+            mProgressBar.setMessage("Bilgileriniz kontrol ediliyor.");
+            mProgressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            mProgressBar.show();
             new AsyncTask<Void, Void, Void>() {
 
                 @Override
@@ -108,6 +111,8 @@ public class FoodActivity extends Activity {
                                     rand_list.add(rand_deger);
                                 }
                                 content.setText(result.get(rand_deger).getContent());
+                                mProgressBar.cancel();
+
                             }
                         });
 
@@ -194,9 +199,9 @@ public class FoodActivity extends Activity {
     public void randomYemekGetir(View view) {
 
         final int zaman=100;
-        mProgressBar_.setMessage("Yemekler aranıyor...");
-        mProgressBar_.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        mProgressBar_.show();
+        mProgressBar.setMessage("Yemekler aranıyor...");
+        mProgressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        mProgressBar.show();
         final Thread t=new Thread(){
             @Override
             public void run(){
@@ -205,14 +210,14 @@ public class FoodActivity extends Activity {
                     try{
                         Thread.sleep(400);
                         ilerleme=ilerleme+100;
-                        mProgressBar_.setProgress(ilerleme);
+                        mProgressBar.setProgress(ilerleme);
                     }catch (InterruptedException e){
                         e.printStackTrace();
 
                     }
 
                     if(rand_list.size()==tag.getTotalCount()){
-                        mProgressBar_.cancel();
+                        mProgressBar.cancel();
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -232,7 +237,7 @@ public class FoodActivity extends Activity {
                         }
 
 
-                        mProgressBar_.cancel();
+                        mProgressBar.cancel();
                     }
 
 

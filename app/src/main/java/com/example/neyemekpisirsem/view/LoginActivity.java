@@ -46,6 +46,7 @@ public class LoginActivity extends Activity {
     EditText lEmail;
     EditText lPass;
     private ProgressDialog mProgressBar;
+    Boolean validation = false;
 
     String lt;
     String lg;
@@ -105,72 +106,60 @@ public class LoginActivity extends Activity {
         mProgressBar.setMessage("Bilgileriniz kontrol ediliyor.");
         mProgressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         mProgressBar.show();
-       final int zaman=100;
-        new AsyncTask<Void, Void, Void>() {
+        if(!validation){
+            new AsyncTask<Void, Void, Void>() {
 
-            Boolean validation = false;
 
-            @Override
-            protected Void doInBackground(Void... params) {
-                Log.d("try", "do in background");
-                try {
-                    final MobileServiceList<Users> result =
-                            mUser.where().field("email").eq(mail).and(mUser.where().field("password").eq(pwd)).execute().get();
-                             Log.d("tag","asd"+result);
+                @Override
+                protected Void doInBackground(Void... params) {
+                    Log.d("try", "do in background");
+                    try {
+                        final MobileServiceList<Users> result =
+                                mUser.where().field("email").eq(mail).and(mUser.where().field("password").eq(pwd)).execute().get();
+                        Log.d("tag","asd"+result);
 
-                             if(result!=null){
-                                 validation=true;
-                             }
-                    if(validation=true){
+                        if(result!=null){
+                            validation=true;
+                        }
+                        if(validation=true){
 
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
 
-                                final Thread t=new Thread(){
-                                    @Override
-                                    public void run(){
-                                        int ilerleme=0;
-                                        while(ilerleme<=zaman){
-                                            try{
-                                                Thread.sleep(400);
-                                                ilerleme=ilerleme+50;
-                                                mProgressBar.setProgress(ilerleme);
+                                    mProgressBar.cancel();
 
-                                            }catch (InterruptedException e){
-                                                e.printStackTrace();
+                                    Intent search = new Intent(getApplicationContext(), SearchActivity.class);
+                                    startActivity(search);
+                                }
+                            });
+                        }
+                        if (validation == false) {
+                            runOnUiThread(new Runnable() {
+                                public void run() {
+                                    Toast toast = Toast.makeText(getApplicationContext(), "Email yada Parola Yanlış!", Toast.LENGTH_LONG);
+                                    toast.setGravity(Gravity.CENTER, 0, 0);
+                                    toast.show();
 
-                                            }
-                                        }
-                                        mProgressBar.cancel();
-                                    }
-
-                                };
-                                t.start();
-                                Intent search = new Intent(getApplicationContext(), SearchActivity.class);
-                                startActivity(search);
-                            }
-                        });
-                    }
-                    if (validation == false) {
-                        runOnUiThread(new Runnable() {
-                            public void run() {
-                                Toast toast = Toast.makeText(getApplicationContext(), "Email yada Parola Yanlış!", Toast.LENGTH_LONG);
-                                toast.setGravity(Gravity.CENTER, 0, 0);
-                                toast.show();
-
-                            }
-                        });
-                    }
+                                }
+                            });
+                        }
                     } catch (Exception exception) {
-                     exception.printStackTrace();
+                        exception.printStackTrace();
 
-                    Log.d("Error", "catching the error");
-                  }
-                return null;
-                 }
+                        Log.d("Error", "catching the error");
+                    }
+                    return null;
+                }
 
-        }.execute();
+            }.execute();
+        }
+        else{
+            mProgressBar.cancel();
+            Intent search = new Intent(getApplicationContext(), SearchActivity.class);
+            startActivity(search);
+        }
+
 
     }
 

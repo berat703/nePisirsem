@@ -33,5 +33,7 @@ dependencies {
     compile 'com.microsoft.azure:azure-notifications-handler:1.0.1@jar'
     compile 'com.android.support:design:22.2.1'
 
+
+
 }
 
