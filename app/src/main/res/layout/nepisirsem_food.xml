@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingLeft="24dp"
-        android:paddingRight="24dp">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:paddingLeft="24dp"
+    tools:context=".view.FoodActivity"
+    android:paddingRight="24dp">
 
         <ImageView
             android:id="@+id/foodImage"
@@ -15,7 +18,9 @@
             android:layout_gravity="center"
             android:layout_marginBottom="80dp"
             android:layout_marginTop="50dp"
-            android:src="@android:drawable/ic_menu_gallery" />
+            android:src="@android:drawable/ic_btn_speak_now" />
+    <!--app:civ_border_width="2dp"-->
+            <!--app:civ_border_color="#FF000000"-->
 
         <TextView
             android:id="@+id/foodContent"
@@ -24,7 +29,6 @@
             android:layout_marginBottom="30dp"
             android:clickable="true"
             android:gravity="center"
-            android:onClick="getRegister"
             android:text="Başlık"
             android:textColor="@color/black"
             android:textSize="16dip" />

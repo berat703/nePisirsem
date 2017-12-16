@@ -18,7 +18,18 @@ public class Foods {
     @com.google.gson.annotations.SerializedName("content")
     private String content;
 
-    private Tags tags;
+    @com.google.gson.annotations.SerializedName("photo_url")
+    private String photo;
+
+    @com.google.gson.annotations.SerializedName("tag_name")
+    private String tag;
+
+
+    @com.google.gson.annotations.SerializedName("category")
+    private String category;
+
+    @com.google.gson.annotations.SerializedName("clock")
+    private String clock;
 
     /*** CONSTRUCTOR *********/
     public Foods(){
@@ -28,9 +39,14 @@ public class Foods {
     @Override
     public String toString() {
         return "Foods{" +
-                "name='" + name + '\'' +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", content='" + content + '\'' +
+                ", photo='" + photo + '\'' +
+                ", tag='" + tag + '\'' +
+                ", category='" + category + '\'' +
+                ", clock='" + clock + '\'' +
                 '}';
     }
 
@@ -75,12 +91,36 @@ public class Foods {
         this.content = content;
     }
 
-    public Tags getTags() {
-        return tags;
+    public String getPhoto() {
+        return photo;
     }
 
-    public void setTags(Tags tags) {
-        this.tags = tags;
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getClock() {
+        return clock;
+    }
+
+    public void setClock(String clock) {
+        this.clock = clock;
     }
 
     /*** EQUALS & HASH *********/

@@ -6,6 +6,13 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapShader;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.RectF;
+import android.graphics.Shader;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,8 +33,11 @@ import com.microsoft.windowsazure.mobileservices.MobileServiceList;
 import com.microsoft.windowsazure.mobileservices.http.OkHttpClientFactory;
 import com.microsoft.windowsazure.mobileservices.table.MobileServiceTable;
 import com.squareup.okhttp.OkHttpClient;
+import com.squareup.picasso.Picasso;
 
+import java.io.InputStream;
 import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -38,25 +48,25 @@ import static junit.framework.Assert.assertEquals;
 
 public class FoodActivity extends Activity {
 
+    private static Context ctx;
     List <Integer> rand_list = new ArrayList();
     int sayac=0;
     int rand_deger=0;
     Random rand = new Random();
     Button degistir;
     private ProgressDialog mProgressBar;
-
     Button tarif;
     TextView content;
-    ImageView image;
+   private static  ImageView image;
     private MobileServiceTable<Foods> foodTable;
     private MobileServiceList<Foods> tag;
     private MobileServiceClient mClient;
-    Context ctx;
-
+    URL url;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food);
+        ctx = this.getApplicationContext();
         degistir = (Button) findViewById(R.id.degistirButton);
         tarif= (Button) findViewById(R.id.tarifButton);
         content = (TextView) findViewById(R.id.foodContent);
@@ -110,7 +120,8 @@ public class FoodActivity extends Activity {
                                 if(find_element(rand_deger)){
                                     rand_list.add(rand_deger);
                                 }
-                                content.setText(result.get(rand_deger).getContent());
+                                content.setText(result.get(rand_deger).getName());
+                                LoadImageFromWebOperations(result.get(rand_deger).getPhoto());
                                 mProgressBar.cancel();
 
                             }
@@ -129,6 +140,28 @@ public class FoodActivity extends Activity {
         }
 
     }
+
+    public static void LoadImageFromWebOperations(String url) {
+
+        Picasso.with(ctx.getApplicationContext()).load(url).placeholder(R.mipmap.ic_balik)
+                .error(R.mipmap.ic_balik)
+                    .resize(500,500)
+                .into(image,new com.squareup.picasso.Callback(){
+
+                    @Override
+                    public void onSuccess() {
+                        Log.d("tag","BASARILI");
+                    }
+
+                    @Override
+                    public void onError() {
+                        Log.d("tag","BASARISIZ");
+
+                    }
+                });
+
+    }
+
 
     public boolean find_element (int deger) {
         boolean x=true;
