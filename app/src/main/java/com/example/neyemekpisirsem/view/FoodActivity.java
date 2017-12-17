@@ -233,6 +233,7 @@ public class FoodActivity extends Activity {
         final int zaman=100;
         mProgressBar.setMessage("Yemekler aranıyor...");
         mProgressBar.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+
         mProgressBar.show();
         final Thread t=new Thread(){
             @Override

@@ -8,7 +8,6 @@
     android:paddingLeft="24dp"
     tools:context=".view.FoodActivity"
     android:paddingRight="24dp">
-
         <ImageView
             android:id="@+id/foodImage"
             android:layout_width="wrap_content"
@@ -67,3 +66,4 @@
 
 
     </LinearLayout>
+
