@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -112,7 +113,9 @@ public class SearchActivity extends Activity {
 
         final String searchedText = search_text.getText().toString();
 if(searchedText.matches("")) {
-    Toast.makeText(this, "Lütfen aramak istediğiniz malzemeyi giriniz!", Toast.LENGTH_SHORT).show();
+    Toast toast = Toast.makeText(getApplicationContext(), "Lütfen aramak istediğiniz malzemeyi giriniz!", Toast.LENGTH_LONG);
+    toast.setGravity(Gravity.CENTER, 0, 0);
+    toast.show();
 }
 else{
     Intent i = new Intent(getApplicationContext(), FoodActivity.class);

@@ -65,7 +65,7 @@ public class FoodActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_food);
+        setContentView(R.layout.nepisirsem_food);
         ctx = this.getApplicationContext();
         degistir = (Button) findViewById(R.id.degistirButton);
         tarif= (Button) findViewById(R.id.tarifButton);
@@ -98,7 +98,7 @@ public class FoodActivity extends Activity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
            final String value = extras.getString("deger");
-            mProgressBar.setMessage("Bilgileriniz kontrol ediliyor.");
+            mProgressBar.setMessage("Yemekler araniyor.");
             mProgressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             mProgressBar.show();
             new AsyncTask<Void, Void, Void>() {
@@ -115,7 +115,6 @@ public class FoodActivity extends Activity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Log.d("berat","berat"+rand_list.contains(1));
                                 rand_deger = rand.nextInt(result.getTotalCount());
                                 if(find_element(rand_deger)){
                                     rand_list.add(rand_deger);
@@ -233,7 +232,8 @@ public class FoodActivity extends Activity {
 
         final int zaman=100;
         mProgressBar.setMessage("Yemekler aranıyor...");
-        mProgressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        mProgressBar.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+
         mProgressBar.show();
         final Thread t=new Thread(){
             @Override
@@ -241,14 +241,13 @@ public class FoodActivity extends Activity {
                 int ilerleme=0;
                 while(ilerleme<zaman){
                     try{
-                        Thread.sleep(400);
-                        ilerleme=ilerleme+100;
+                        Thread.sleep(200);
+                        ilerleme+=100;
                         mProgressBar.setProgress(ilerleme);
                     }catch (InterruptedException e){
                         e.printStackTrace();
 
                     }
-
                     if(rand_list.size()==tag.getTotalCount()){
                         mProgressBar.cancel();
                         runOnUiThread(new Runnable() {
@@ -279,8 +278,8 @@ public class FoodActivity extends Activity {
             }
 
         };
-        t.start();
-        Log.d("asd","asd");
+       t.start();
+
 
     }
     private void createAndShowDialog(Exception exception, String title) {
@@ -298,4 +297,11 @@ public class FoodActivity extends Activity {
         builder.setTitle(title);
         builder.create().show();
     }
+
+    public void getRecipe(View view){
+        Intent i = new Intent(getApplicationContext(), TarifActivity.class);
+        i.putExtra("name", content.getText());
+        startActivity(i);
+    }
+
 }
