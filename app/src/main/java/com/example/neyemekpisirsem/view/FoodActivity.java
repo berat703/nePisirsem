@@ -6,6 +6,13 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapShader;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.RectF;
+import android.graphics.Shader;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,8 +33,11 @@ import com.microsoft.windowsazure.mobileservices.MobileServiceList;
 import com.microsoft.windowsazure.mobileservices.http.OkHttpClientFactory;
 import com.microsoft.windowsazure.mobileservices.table.MobileServiceTable;
 import com.squareup.okhttp.OkHttpClient;
+import com.squareup.picasso.Picasso;
 
+import java.io.InputStream;
 import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -38,29 +48,30 @@ import static junit.framework.Assert.assertEquals;
 
 public class FoodActivity extends Activity {
 
+    private static Context ctx;
     List <Integer> rand_list = new ArrayList();
     int sayac=0;
     int rand_deger=0;
     Random rand = new Random();
     Button degistir;
+    private ProgressDialog mProgressBar;
     Button tarif;
     TextView content;
-    ImageView image;
+   private static  ImageView image;
     private MobileServiceTable<Foods> foodTable;
     private MobileServiceList<Foods> tag;
-    private ProgressDialog mProgressBar_;
     private MobileServiceClient mClient;
-    Context ctx;
-
+    URL url;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_food);
+        setContentView(R.layout.nepisirsem_food);
+        ctx = this.getApplicationContext();
         degistir = (Button) findViewById(R.id.degistirButton);
         tarif= (Button) findViewById(R.id.tarifButton);
         content = (TextView) findViewById(R.id.foodContent);
         image = (ImageView) findViewById(R.id.foodImage);
-        mProgressBar_=new ProgressDialog(this);
+        mProgressBar=new ProgressDialog(this);
         try {
 
             mClient = new MobileServiceClient(
@@ -87,7 +98,9 @@ public class FoodActivity extends Activity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
            final String value = extras.getString("deger");
-
+            mProgressBar.setMessage("Yemekler araniyor.");
+            mProgressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            mProgressBar.show();
             new AsyncTask<Void, Void, Void>() {
 
                 @Override
@@ -102,12 +115,14 @@ public class FoodActivity extends Activity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Log.d("berat","berat"+rand_list.contains(1));
                                 rand_deger = rand.nextInt(result.getTotalCount());
                                 if(find_element(rand_deger)){
                                     rand_list.add(rand_deger);
                                 }
-                                content.setText(result.get(rand_deger).getContent());
+                                content.setText(result.get(rand_deger).getName());
+                                LoadImageFromWebOperations(result.get(rand_deger).getPhoto());
+                                mProgressBar.cancel();
+
                             }
                         });
 
@@ -124,6 +139,28 @@ public class FoodActivity extends Activity {
         }
 
     }
+
+    public static void LoadImageFromWebOperations(String url) {
+
+        Picasso.with(ctx.getApplicationContext()).load(url).placeholder(R.mipmap.ic_balik)
+                .error(R.mipmap.ic_balik)
+                    .resize(500,500)
+                .into(image,new com.squareup.picasso.Callback(){
+
+                    @Override
+                    public void onSuccess() {
+                        Log.d("tag","BASARILI");
+                    }
+
+                    @Override
+                    public void onError() {
+                        Log.d("tag","BASARISIZ");
+
+                    }
+                });
+
+    }
+
 
     public boolean find_element (int deger) {
         boolean x=true;
@@ -194,25 +231,24 @@ public class FoodActivity extends Activity {
     public void randomYemekGetir(View view) {
 
         final int zaman=100;
-        mProgressBar_.setMessage("Yemekler aranıyor...");
-        mProgressBar_.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        mProgressBar_.show();
+        mProgressBar.setMessage("Yemekler aranıyor...");
+        mProgressBar.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        mProgressBar.show();
         final Thread t=new Thread(){
             @Override
             public void run(){
                 int ilerleme=0;
                 while(ilerleme<zaman){
                     try{
-                        Thread.sleep(400);
-                        ilerleme=ilerleme+100;
-                        mProgressBar_.setProgress(ilerleme);
+                        Thread.sleep(200);
+                        ilerleme+=100;
+                        mProgressBar.setProgress(ilerleme);
                     }catch (InterruptedException e){
                         e.printStackTrace();
 
                     }
-
                     if(rand_list.size()==tag.getTotalCount()){
-                        mProgressBar_.cancel();
+                        mProgressBar.cancel();
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -232,7 +268,7 @@ public class FoodActivity extends Activity {
                         }
 
 
-                        mProgressBar_.cancel();
+                        mProgressBar.cancel();
                     }
 
 
@@ -241,8 +277,8 @@ public class FoodActivity extends Activity {
             }
 
         };
-        t.start();
-        Log.d("asd","asd");
+       t.start();
+
 
     }
     private void createAndShowDialog(Exception exception, String title) {
@@ -260,4 +296,11 @@ public class FoodActivity extends Activity {
         builder.setTitle(title);
         builder.create().show();
     }
+
+    public void getRecipe(View view){
+        Intent i = new Intent(getApplicationContext(), TarifActivity.class);
+        i.putExtra("name", content.getText());
+        startActivity(i);
+    }
+
 }
