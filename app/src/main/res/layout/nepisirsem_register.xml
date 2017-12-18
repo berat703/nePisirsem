@@ -19,7 +19,7 @@
             android:layout_height="75dp"
             android:layout_gravity="center_horizontal"
 
-            android:src="@drawable/logo" />
+            android:src="@drawable/transparentlogo" />
 
         <!--  Name Label -->
         <android.support.design.widget.TextInputLayout

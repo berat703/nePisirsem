@@ -176,7 +176,7 @@ public class FoodActivity extends Activity {
     public static void LoadImageFromWebOperations(final String url) {
         try{
 
-            Picasso.with(ctx.getApplicationContext()).load(url).placeholder(R.mipmap.ic_balik)
+            Picasso.with(ctx.getApplicationContext()).load(url).placeholder(R.color.white)
                     .error(R.mipmap.ic_balik)
                     .transform(transformation)
                     .resize(500,500)
@@ -333,9 +333,9 @@ public class FoodActivity extends Activity {
                                 @Override
                                 public void run() {
                                     LoadImageFromWebOperations(tag.get(rand_deger).getPhoto());
+                                    mProgressBar.cancel();
                                 }
                             });
-                            mProgressBar.cancel();
                             rand_list.add(rand_deger);
                         }
 

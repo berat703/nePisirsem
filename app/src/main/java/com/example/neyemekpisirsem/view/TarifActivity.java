@@ -42,7 +42,7 @@ public class TarifActivity extends AppCompatActivity {
     @Override
    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.nepisirsem_tarif);
+        setContentView(R.layout.nepisirsem_recipe);
         ctx = this.getApplicationContext();
         content2=(TextView)findViewById(R.id.content);
         title=(TextView)findViewById(R.id.titleText);
@@ -127,8 +127,8 @@ public class TarifActivity extends AppCompatActivity {
 
     public static void LoadImageFromWebOperations(String url) {
 
-        Picasso.with(ctx.getApplicationContext()).load(url).placeholder(R.mipmap.ic_balik)
-                .error(R.mipmap.ic_balik)
+        Picasso.with(ctx.getApplicationContext()).load(url).placeholder(R.color.white)
+                .error(R.color.white)
                 .transform(transformation)
                 .resize(500,500)
                 .into(image,new com.squareup.picasso.Callback(){
