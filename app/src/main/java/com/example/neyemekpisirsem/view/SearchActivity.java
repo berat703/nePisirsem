@@ -120,6 +120,7 @@ if(searchedText.matches("")) {
 else{
     Intent i = new Intent(getApplicationContext(), FoodActivity.class);
     i.putExtra("deger", searchedText);
+    search_text.setText("");
     startActivity(i);
 }
 

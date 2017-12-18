@@ -10,6 +10,6 @@
         android:layout_width="192dp"
         android:layout_height="112dp"
         android:layout_gravity="center"
-        android:src="@drawable/logo2" />
+        android:src="@drawable/beyazbuyuk" />
 
 </LinearLayout>
