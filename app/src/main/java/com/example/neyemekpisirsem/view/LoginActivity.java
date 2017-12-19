@@ -43,7 +43,7 @@ public class LoginActivity extends Activity {
     private MobileServiceClient mClient;
     private MobileServiceTable<Users> mUser;
 
-    EditText lEmail;
+    EditText userName;
     EditText lPass;
     private ProgressDialog mProgressBar;
     Boolean validation = false;
@@ -65,7 +65,7 @@ public class LoginActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.nepisirsem_login);
         bt_login = (Button) findViewById(R.id.loginButton);
-        lEmail = (EditText) findViewById(R.id.userName);
+        userName = (EditText) findViewById(R.id.userName);
         lPass = (EditText) findViewById(R.id.userPass);
         mProgressBar=new ProgressDialog(this);
 
@@ -88,8 +88,8 @@ public class LoginActivity extends Activity {
 
     public void add(View view) {
 
-        if (lEmail.getText().toString().trim().equals("")) {
-            lEmail.setError("Email boş bırakılamaz!");
+        if (userName.getText().toString().trim().equals("")) {
+            userName.setError("Email boş bırakılamaz!");
             return;
         }
 
@@ -98,10 +98,10 @@ public class LoginActivity extends Activity {
             return;
         }
 
-        final String mail;
+        final String username;
         final String pwd;
 
-        mail = lEmail.getText().toString();
+        username = userName.getText().toString();
         pwd = lPass.getText().toString();
         mProgressBar.setMessage("Bilgileriniz kontrol ediliyor.");
         mProgressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
@@ -115,22 +115,24 @@ public class LoginActivity extends Activity {
                     Log.d("try", "do in background");
                     try {
                         final MobileServiceList<Users> result =
-                                mUser.where().field("email").eq(mail).and(mUser.where().field("password").eq(pwd)).execute().get();
+                                mUser.where().field("username").eq(username).and(mUser.where().field("password").eq(pwd)).execute().get();
                         Log.d("tag","asd"+result);
 
-                        if(result!=null){
+                        if(result.size()!=0){
                             validation=true;
                         }
-                        if(validation=true){
+                        if(validation==true){
 
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
+                                    if(validation==true){
+                                        mProgressBar.cancel();
 
-                                    mProgressBar.cancel();
+                                        Intent search = new Intent(getApplicationContext(), SearchActivity.class);
+                                        startActivity(search);
+                                    }
 
-                                    Intent search = new Intent(getApplicationContext(), SearchActivity.class);
-                                    startActivity(search);
                                 }
                             });
                         }
@@ -155,9 +157,12 @@ public class LoginActivity extends Activity {
             }.execute();
         }
         else{
-            mProgressBar.cancel();
-            Intent search = new Intent(getApplicationContext(), SearchActivity.class);
-            startActivity(search);
+
+                mProgressBar.cancel();
+                Intent search = new Intent(getApplicationContext(), SearchActivity.class);
+                startActivity(search);
+
+
         }
 
 
