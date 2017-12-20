@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:hint="Kullanıcı Adı"
                 android:textColorHighlight="@color/primary"
-                android:inputType="textMultiLine|textPersonName"
+                android:inputType="textPersonName"
                 android:textColorHint="@color/black" />
         </android.support.design.widget.TextInputLayout>
 
@@ -51,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:hint="Parola"
                 android:shadowColor="@color/primary"
-                android:inputType="textMultiLine|textPassword"
+                android:inputType="textPassword"
                 android:textColorHint="@color/black" />
         </android.support.design.widget.TextInputLayout>
 

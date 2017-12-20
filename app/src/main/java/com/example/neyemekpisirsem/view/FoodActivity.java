@@ -68,13 +68,6 @@ public class FoodActivity extends Activity {
     private MobileServiceList<Foods> tag;
     private MobileServiceClient mClient;
     URL url;
-
-//    public FoodActivity(Context con){
-//        super();
-//        this.ctx = con;
-//
-//    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -130,7 +123,7 @@ public class FoodActivity extends Activity {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    dialogNotFound("Aradığınız içeriği bulamadık.Bunları denemeye ne dersin?   patlıcan,bezelye,pirzola","Uppss!");
+                                    dialogNotFound("Aradığınız içeriği bulamadık.Bunları denemeye ne dersin?   patlıcan,et,tavuk","Uppss!");
                                 }
                             });
                         }
