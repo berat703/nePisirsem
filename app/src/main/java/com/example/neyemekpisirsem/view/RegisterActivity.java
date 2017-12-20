@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -32,6 +33,7 @@ import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import com.microsoft.windowsazure.mobileservices.MobileServiceClient;
+import com.microsoft.windowsazure.mobileservices.MobileServiceList;
 import com.microsoft.windowsazure.mobileservices.authentication.MobileServiceAuthenticationProvider;
 import com.microsoft.windowsazure.mobileservices.http.NextServiceFilterCallback;
 import com.microsoft.windowsazure.mobileservices.http.OkHttpClientFactory;
@@ -78,6 +80,8 @@ public class RegisterActivity extends Activity {
     EditText pass2;
     Button register;
     private ProgressDialog mProgressBar;
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -173,35 +177,51 @@ public class RegisterActivity extends Activity {
         if (mClient == null) {
             return;
         }
+
         boolean isSuccess=false;
         final Users item = new Users();
         String passw=password.getText().toString();
         String passw2=pass2.getText().toString();
+        final String usernameStr = username.getText().toString();
         item.setUsername(username.getText().toString());
         item.setPassword(password.getText().toString());
         item.setEmail(email.getText().toString());
         item.setAuthor(false);
         item.setName(name.getText().toString());
 
-        if(item.getUsername().matches("")){
-            Toast.makeText(this, "Kullanıcı Adı boş bırakılamaz!", Toast.LENGTH_SHORT).show();
+        if(item.getUsername().toString().trim().length()==0||item.getUsername().matches("")||username==null){
+            Toast toast = Toast.makeText(getApplicationContext(), "Kullanıcı Adı boş bırakılamaz!", Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
+            return;
+        }
+        if(item.getEmail().toString().trim().length()==0||item.getUsername().matches("")||email==null){
+            Toast toast = Toast.makeText(getApplicationContext(), "E-mail boş bırakılamaz!", Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
+            return;
 
         }
-        if(item.getPassword().matches("")){
-            Toast.makeText(this, "Parola boş bırakılamaz!", Toast.LENGTH_SHORT).show();
-
-        }
-        if(item.getEmail().matches("")){
-            Toast.makeText(this, "E-mail boş bırakılamaz!", Toast.LENGTH_SHORT).show();
-
+        if(item.getPassword().toString().trim().length()==0||item.getUsername().matches("")||password==null){
+            Toast toast = Toast.makeText(getApplicationContext(), "Parola boş bırakılamaz!", Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
+            return;
         }
         if(!passw.equals(passw2))
         {
-            Toast.makeText(this, "Parolalar eşleşmiyor!", Toast.LENGTH_SHORT).show();
+            Toast toast = Toast.makeText(getApplicationContext(), "Parolalar eşleşmiyor!", Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
+            return;
         }
-        else{
 
-            Toast.makeText(this,"Kaydınız başarı ile oluşturulmuştur,Login sayfasina yönlendiriliyorsunuz.",Toast.LENGTH_LONG).show();
+
+        else{
+            Toast toast = Toast.makeText(getApplicationContext(), "Kaydınız başarı ile oluşturulmuştur,Login sayfasina yönlendiriliyorsunuz.", Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
+
             isSuccess=true;
             AsyncTask<Void, Void, Void> task = new AsyncTask<Void, Void, Void>() {
                 @Override
