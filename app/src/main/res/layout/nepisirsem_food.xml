@@ -25,16 +25,27 @@
         android:textSize="18dp"
         android:textStyle="bold" />
 
-    <ImageView
-        android:id="@+id/foodImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <!--<ImageView-->
+        <!--android:id="@+id/foodImage"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
 
+        <!--android:layout_below="@+id/foodContent"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:layout_marginTop="24dp"-->
+        <!--android:src="@color/white" />-->
+    <pl.droidsonroids.gif.GifImageView
+        android:layout_width="wrap_content"
+        android:id="@+id/foodImage"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/foodContent"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
         android:layout_marginTop="24dp"
-        android:src="@color/white" />
+        android:src="@drawable/loading"
+        android:background="@drawable/loading"
+        />
 
     <TextView
         android:id="@+id/malzeme"

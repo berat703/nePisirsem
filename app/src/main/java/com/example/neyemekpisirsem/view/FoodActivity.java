@@ -48,6 +48,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
+import static java.lang.Thread.sleep;
 import static junit.framework.Assert.assertEquals;
 
 
@@ -144,7 +145,6 @@ public class FoodActivity extends Activity {
                                     }
                                     changeText(result.get(rand_deger).getName(),result.get(rand_deger).getDescription());
                                     LoadImageFromWebOperations(result.get(rand_deger).getPhoto());
-                                    mProgressBar.cancel();
 
                                 }
                             });
@@ -161,6 +161,7 @@ public class FoodActivity extends Activity {
                 }
 
             }.execute();
+            mProgressBar.cancel();
 
         }
 
@@ -176,8 +177,8 @@ public class FoodActivity extends Activity {
     public static void LoadImageFromWebOperations(final String url) {
         try{
 
-            Picasso.with(ctx.getApplicationContext()).load(url).placeholder(R.color.white)
-                    .error(R.mipmap.ic_balik)
+            Picasso.with(ctx.getApplicationContext()).load(url).placeholder(R.drawable.loading)
+                    .error(R.color.white)
                     .transform(transformation)
                     .resize(500,500)
                     .into(image,new com.squareup.picasso.Callback(){
@@ -193,6 +194,7 @@ public class FoodActivity extends Activity {
 
                         }
                     });
+            image.setBackground(null);
         }catch(Exception e){
             Log.d("asd","sadf"+e);
         }
@@ -305,10 +307,8 @@ public class FoodActivity extends Activity {
     }
 
     public void randomYemekGetir(View view) {
-
         mProgressBar.setMessage("Yemekler aranıyor...");
         mProgressBar.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-
         mProgressBar.show();
 
 
@@ -317,11 +317,13 @@ public class FoodActivity extends Activity {
                             @Override
                             public void run() {
                                 EndOfList();
-                                mProgressBar.cancel();
                             }
                         });
                     }
                     else{
+
+                        image.setBackground(getResources().getDrawable(R.drawable.loading));
+                        image.setImageDrawable(getResources().getDrawable(R.drawable.loading));
                         while(!find_element(rand_deger)){
                             rand_deger = rand.nextInt(tag.getTotalCount());
                         }
@@ -333,18 +335,15 @@ public class FoodActivity extends Activity {
                                 @Override
                                 public void run() {
                                     LoadImageFromWebOperations(tag.get(rand_deger).getPhoto());
-                                    mProgressBar.cancel();
                                 }
                             });
                             rand_list.add(rand_deger);
                         }
 
 
-                        mProgressBar.cancel();
                     }
-
-
-
+        image.setBackground(null);
+        mProgressBar.cancel();
     }
 
     private void createAndShowDialog(Exception exception, String title) {
